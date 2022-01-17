@@ -1,0 +1,24 @@
+{
+  "name": "chessengine",
+  "version": "1.0.0",
+  "description": "A from-scratch chess game",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "express-socket.io-session": "^1.3.5",
+    "socket.io": "^4.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "chess",
+    "game",
+    "engine",
+    "web"
+  ],
+  "author": "Toninja",
+  "license": "ISC"
+}

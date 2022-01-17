@@ -1,0 +1,108 @@
+@media screen and (max-width: 500px) {
+    .promotionPrompt {
+        width: 125px;
+        height: auto;
+
+        flex-direction: column;
+    }
+    #drawPrompt {
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        border-radius: 0;
+    }
+    .invite, .score {
+        width: 100%;
+        height: 100%;
+
+        display: none;
+        flex-direction: column;
+    }
+    .invite.shown, .score.shown {
+        display: flex;
+    }
+}
+@media screen and (min-width: 501px) {
+    .promotionPrompt {
+        height: 125px;
+        width: auto;
+
+        flex-direction: row;
+    }
+    #drawPrompt {
+        top: 25px;
+        right: 25px;
+
+        width: 400px;
+        border-radius: 3px;
+    }
+    .invite, .score {
+        border-radius: 10px;
+        width: 450px;
+        height: 220px;
+
+        display: none;
+        grid-template-columns: 1fr;
+        grid-template-rows: 75px 1fr;
+
+        grid-template-areas:
+            "header"
+            "main";
+    }
+    .score {
+        height: auto !important;
+    }
+    .invite.shown, .score.shown {
+        display: grid;
+    }
+}
+
+@media screen and (max-width: 1450px) {
+    .main {
+        
+    }
+}
+@media screen and (min-width: 1450px) {
+    .main {
+
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .settings {
+        border-radius: 10px;
+        width: 950px;
+        height: 600px;
+
+        display: none;
+        grid-template-columns: 25% 1fr;
+        grid-template-rows: 75px 1fr;
+
+        grid-template-areas:
+            "header header"
+            "list main";
+    }
+    .settings.shown {
+        display: grid;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .settings {
+        width: 100%;
+        height: 100%;
+
+        display: none;
+        flex-direction: column;
+    }
+    .settings.shown {
+        display: flex;
+    }
+    .field.active {
+        margin-left: 25px;
+    }
+    .popupTitle {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}

@@ -1,0 +1,3 @@
+[submodule "tChess"]
+	path = tChess
+	url = https://github.com/Toninja2/tChess.git

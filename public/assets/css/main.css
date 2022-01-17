@@ -1,0 +1,431 @@
+@import url('https://fonts.googleapis.com/css?family=YT+Sans:500,700');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@keyframes slideFromTop {
+    from {
+        transform: translateY(-200%);
+    }
+}
+.promotionPrompt {
+    border-radius: 5px;
+    overflow: hidden;
+    display: none;
+}
+.promotionPrompt.shown {
+    display: flex;
+}
+.promotionPrompt button {
+    cursor: pointer;
+
+    height: 125px;
+    width: 125px;
+
+    border: none;
+    outline: none;
+
+    transition: 0.5s;
+    position: relative;
+}
+.promotionPrompt button:hover {
+    background: #d7d7d7;
+}
+.promotionPrompt button img {
+    width: 100%;
+    padding: 15px;
+    height: 100%;
+}
+.identity {
+    height: 80%;
+    width: 60%;
+    border-radius: 5px;
+    font-family: 'YT Sans';
+}
+.identity .popupTitle {
+    height: 75px;
+}
+.identity form {
+    padding: 0 !important;
+}
+.identity form label:first-child {
+    margin-top: 0;
+}
+#drawPrompt {
+    background: white;
+
+    padding: 0;
+    padding-bottom: 0;
+
+    position: fixed;
+    z-index: 8;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+
+    font-family: 'YT Sans';
+
+    animation: slideFromTop 1s ease-out;
+}
+#drawPrompt #loadingBar {
+    background: #27ae60;
+    width: 100%;
+    height: 15px;
+    margin-top: auto;
+}
+#drawPrompt hr {
+    height: 1px;
+    width: 100%;
+    background: #ebebeb;
+    border: none;
+}
+#drawPrompt .content button:first-child {
+    margin-top: 25px;
+}
+#drawPrompt .content button {
+    border-radius: 2px;
+    margin-top: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    height: 35px;
+    color: white;
+    font-family: 'Poppins';
+}
+
+#drawPrompt .accept {
+    background: #2ecc71;
+}
+#drawPrompt .decline {
+    background: #e74c3c;
+}
+.container {
+    border-radius: 5px;
+}
+.container .title {
+    border-bottom: 1px solid #ebebeb;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+}
+.container .title p {
+    margin-left: 30px;
+    font-size: 1.15em;
+    font-family: 'YT Sans';
+    color: var(--grey-color);
+}
+.game {
+    margin: 15px;
+    flex: 1;
+    margin-left: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+#history {
+    flex: 2;
+    padding: 10px;
+
+    border-bottom: 1px solid #ebebeb;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: auto;
+}
+#history .histoMove {
+    font-family: 'Consolas';
+    color: var(--grey-color);
+
+    font-size: 0.9em;
+
+    display: flex;
+    flex-direction: row;
+
+    position: relative;
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #ebebeb;
+}
+#history .histoMove:not(:first-child) {
+    padding-top: 10px;
+}
+#history .histoMove span {
+    flex: 1;
+    height: 100%;
+}
+#history .histoMove div {
+    flex: 2;
+}
+div.whiteMove {
+
+}
+
+#gameScore {
+    padding: 20px;
+}
+#gameScore button:nth-child(1) {
+    margin-bottom: 20px;
+}
+#gameScore button {
+    width: 100%;
+
+    position: relative;
+}
+#gameScore button span.material-icons {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+
+    position: absolute;
+    left: 12px;
+    top: calc(50% - 12px);
+}
+button.google {
+    background: var(--blue-color);
+
+    color: white;
+    border: none;
+    font-family: Poppins;
+    font-size: 0.85em;
+
+    padding: 15px 25px 15px 25px;
+    outline: none;
+    border-radius: 3px;
+
+    transition: 0.2s;
+}
+button.google:not(:disabled) {
+    cursor: pointer;
+}
+button.google:disabled {
+    cursor: not-allowed;
+}
+button.google:disabled:hover {
+    opacity: 0.8;
+}
+button.google:not(:disabled):hover {
+    transform: scale(0.98);
+}
+button.formatted {
+    font-family: sans-serif;
+
+    padding: 15px;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+button.blue {
+    background: #2e6dff;
+    color: white;
+}
+button.green {
+    background: #27ae60;
+    color: white;
+}
+
+header {
+    width: 100%;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+}
+header p {
+    display: none;
+    margin-left: 25px;
+
+    color: #ebebeb;
+    font-size: 1em;
+
+    font-family: 'Poppins', sans-serif;
+}
+header h1 {
+    margin-left: 25px;
+
+    color: black;
+    font-size: 2em;
+
+    font-family: 'YT Sans', sans-serif;
+}
+header button#invite {
+    cursor: pointer;
+    border: none;
+    margin-left: 15px;
+    background: none;
+    color: #3498db;
+}
+header button#invite:hover {
+    text-decoration: underline;
+}
+#openSettings, .closePopup {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    width: 40px;
+    height: 40px;
+    color: var(--grey-color);
+    margin-left: auto;
+    margin-right: 19px;
+
+    transition: 0.2s;
+}
+#openSettings:hover, .closePopup:hover {
+    background: #ebebeb;
+}
+
+#connectionIndicator {
+    margin-left: 30px;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    z-index: 7;
+}
+#connectionIndicator div:nth-child(1) {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    z-index: 8;
+}
+#connectionIndicator div:nth-child(2) {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 7;
+    margin: auto;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+
+    opacity: 0.5;
+
+    animation: grow 2s infinite ease-in-out;
+    transform-origin: center;
+}
+
+@keyframes grow {
+    from {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.6);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+#connectionIndicator.connected div:nth-child(1) {
+    background: #27ae60;
+}
+#connectionIndicator.connected div:nth-child(2) {
+    background: #2ecc71;
+}
+#connectionIndicator.disconnected div:nth-child(1) {
+    background: #c0392b;
+}
+#connectionIndicator.disconnected div:nth-child(2) {
+    background: #e74c3c;
+}
+
+select {
+    width: 100%;
+
+    font-size: 1em;
+    font-family: 'YT Sans';
+    border: 1px solid #ebebeb;
+    border-radius: 3px;
+
+    cursor: pointer;
+    background: transparent;
+    color: var(--blue-color);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 15px;
+    outline: none;
+
+    transition: 0.5s;
+}
+select:hover {
+    background: #ebebeb;
+}
+.custom-select span {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+
+    position: absolute;
+    left: calc(100% - 24px - 10px);
+    top: calc(50% - 12px);
+
+    transition: .5s
+}
+.custom-select select:focus ~ span {
+    transform: rotate(-90deg);
+}
+
+.container {
+    background: white;
+    box-shadow: 0 0 20px 10px #ebebeb;
+}
+.shadowed {
+    box-shadow: 0 0 20px 11px rgba(0, 0, 0, .06);
+}
+
+form {
+    padding: 25px;
+    padding-top: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    flex: 2;
+}
+form label {
+    margin-top: 15px;
+}
+form input[type=text] {
+    margin-top: 15px;
+    font-family: Arial;
+
+    border: none;
+    outline: none;
+
+    background: #ebebeb;
+    border-radius: 3px;
+    padding: 8px;
+}
+form input[type=submit] {
+    margin-top: auto;
+    cursor: pointer;
+    background: var(--blue-color);
+
+    color: white;
+    border: none;
+    font-family: Poppins;
+    font-size: 0.85em;
+
+    padding: 15px 25px 15px 25px;
+    outline: none;
+    border-radius: 3px;
+
+    transition: 0.2s;
+}
+form input[type=submit]:hover {
+    transform: scale(0.98);
+}

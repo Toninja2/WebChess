@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CHESS</title>
+        <link rel="stylesheet" href="./assets/css/board.css"/>
+        <link rel="stylesheet" href="./assets/css/main.css"/>
+        <link rel="stylesheet" href="./assets/css/mediaqueries.css"/>
+    </head>
+    <body>
+        <style>
+            body {
+                background-image: url('assets/images/board.png');
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                height: 100vh;
+            }
+            .MainContainer {
+                user-select: none;
+                cursor: pointer;
+
+                background: white;
+                padding: 25px;
+                border-radius: 5px;
+
+                animation: waitingClick 2s infinite ease-in-out;
+            }
+            .MainContainer h1 {
+                font-family: "YT Sans", sans-serif;
+                font-weight: bold;
+                font-size: 3em;
+
+                letter-spacing: 5px;
+            }
+
+            @keyframes waitingClick {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.1);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+        </style>
+
+        <div class="MainContainer">
+            <h1>Web Chess</h1>
+        </div>
+
+        <script>
+            const mainContainer = document.querySelector('.MainContainer');
+
+            mainContainer.onclick = e => {
+                window.open('/customizeGame', '_self');
+            }
+        </script>
+    </body>
+</html>

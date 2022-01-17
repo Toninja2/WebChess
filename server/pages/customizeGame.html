@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Customisez votre partie</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="./../assets/js/utils.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./../assets/css/board.css"/>
+        <link rel="stylesheet" href="./../assets/css/main.css"/>
+        <link rel="stylesheet" href="./../assets/css/mediaqueries.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    </head>
+    <body class="">
+        <div class="container shadowed customizeGame">
+            <div class="title">
+                <p>Customisez votre partie</p>
+            </div>
+            <form action="/createGame" method="get">
+                <label for="startFEN">Position de départ</label>
+                <input type="text" name="startFEN" id="startFEN" placeholder="FEN de départ" value="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"/>
+
+                <label for="time">Temps de départ (m) + rajout (s)</label>
+                <input type="text" name="time" id="time" placeholder="Temps" value="15+10"/>
+
+                <input style="margin-top: 25px;" type="submit" value="Créer"/>
+            </form>
+        </div>
+        <style>
+            .customizeGame {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+
+                font-family: "YT Sans";
+
+                transform: translate(-50%, -50%);
+
+                display: flex;
+                flex-direction: column;
+            }
+            @media screen and (min-width: 650px) {
+                .customizeGame {
+                    width: 600px;
+                    height: auto;
+                    min-height: 300px;
+                }
+            }
+            @media screen and (max-width: 650px) {
+                .customizeGame {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        </style>
+    </body>
+</html>

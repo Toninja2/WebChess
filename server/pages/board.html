@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Partie d'échecs</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="./../assets/js/utils.js"></script>
+        <script src="./../assets/js/Board.js"></script>
+        <script src="./../assets/js/pieces.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./../assets/css/board.css"/>
+        <link rel="stylesheet" href="./../assets/css/main.css"/>
+        <link rel="stylesheet" href="./../assets/css/mediaqueries.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    </head>
+    <body>
+        <audio src="./../assets/audio/win.mp3" id="winMusic"></audio>
+        <audio src="./../assets/audio/titanic.mp3" id="loseMusic"></audio>
+        <audio src="./../assets/audio/never.mp3" id="neverMusic" loop></audio>
+        <audio src="./../assets/audio/peace.mp3" id="peace"></audio>
+
+        <div class="popup promotionPrompt shadowed">
+            <button data-promo="q">
+                <img class="replaceColor" src="./../assets/images/normal_{COLOR}q.png"/>
+            </button>
+            <button data-promo="r">
+                <img class="replaceColor" src="./../assets/images/normal_{COLOR}r.png"/>
+            </button>
+            <button data-promo="b">
+                <img class="replaceColor" src="./../assets/images/normal_{COLOR}b.png"/>
+            </button>
+            <button data-promo="n">
+                <img class="replaceColor" src="./../assets/images/normal_{COLOR}n.png"/>
+            </button>
+        </div>
+        <div class="popup identity shadowed" style="display: none">
+            <span class="popupTitle">
+                <p>Identité</p>
+                <button class="closePopup material-icons">&#xe5cd;</button>
+            </span>
+            <div class="content">
+                <form>
+                    <label for="pseudo">Pseudo désiré</label>
+                    <input type="text" id="pseudo" name="pseudo" placeholder="Pseudo"/>
+                    <button type="submit" class="google">Se connecter</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup score shadowed">
+            <span class="popupTitle">
+                <p id='victory'>Partie finie !</p>
+                <button class="closePopup material-icons">&#xe5cd;</button>
+            </span>
+            <div class="content">
+                <p id="endReason"></p>
+            </div>
+        </div>
+        <div class="popup invite shadowed">
+            <span class="popupTitle">
+                <p>Inviter</p>
+                <button class="closePopup material-icons">&#xe5cd;</button>
+            </span>
+            <div class="content">
+                <input type="text" class="roomLink" style="font-family: Consolas" onkeypress="return false"/>
+                <button class="google" id="copyLink">Copier le lien</button>
+            </div>
+        </div>
+        <div class="popup settings shadowed">
+            <span class="popupTitle">
+                <p>Paramètres</p>
+                <button class="closePopup material-icons">&#xe5cd;</button>
+            </span>
+            <div id="list">
+                <span class="parameterField active" data-field="apparence"><p>Apparence</p></span>
+                <span class="parameterField" data-field="audio"><p>Audio</p></span>
+            </div>
+            <div id="fields">
+                <div class="field active" data-field="apparence">
+                    <h1>Apparence</h1>
+
+                    <button id="boardRotation" class="google" onclick="rotateBoard()">
+                        Tourner l'échiquier
+                    </button>
+
+                    <p>Style des pièces</p>
+
+                    <div class="custom-select">
+                        <select class="storageSetting" data-setting="piecesMode" id="piecesStyle" oninput="changePiecesMode(this.value)">
+                            <option value="classic">Classique</option>
+                            <option value="normal">Moderne</option>
+                        </select>
+                        <span class="material-icons">&#xe314;</span>
+                    </div>
+
+                    <p>Couleur de l'échiquier</p>
+
+                    <div class="custom-select">
+                        <select class="storageSetting" data-setting="boardColor" oninput="boardContainer.dataset.color = this.value">
+                            <option value="">Bleu</option>
+                            <option value="green">Vert</option>
+                        </select>
+                        <span class="material-icons">&#xe314;</span>
+                    </div>
+                </div>
+                <div class="field" data-field="audio">
+                    <h1>Audio</h1>
+
+                    <button class="google" onclick="startStopMusic('never')">
+                        Jouer / Arrêter "Never gonna give you up"
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="drawPrompt" class='shadowed'>
+            <div class='content'>
+                Proposition de nulle
+                <div id="drawPromptButtons">
+                    <button class="accept">Accepter</button>
+                    <button class="decline">Refuser</button>
+                </div>
+            </div>
+            <hr>
+            <div id="loadingBar"></div>
+        </div>
+        <header class="shadowed">
+            <div id="connectionIndicator">
+                <div></div>
+                <div id="subCoIndicator"></div>
+            </div>
+            <p id="subURL"></p>
+            <h1 id="gameId"></h1>
+
+            <button id="invite" onclick="document.getElementsByClassName('invite')[0].classList.add('shown')">Inviter</button>
+
+            <button id="openSettings" class="material-icons">&#xe8b8;</button>
+        </header>
+        <div class="main">
+            <div class="container shadowed gameInformations vertical">
+                <div class="side blackSide">
+                    <img class="imageWhite" src="./../assets/images/normal_wk.png"/>
+                    <img class="imageBlack" src="./../assets/images/normal_bk.png"/>
+
+                    <div class="timer">En attente ...</div>
+                </div>
+                <hr>
+                <div class="side whiteSide">
+                    <div class="timer">En attente ...</div>
+
+                    <img class="imageWhite" src="./../assets/images/normal_wk.png"/>
+                    <img class="imageBlack" src="./../assets/images/normal_bk.png"/>
+                </div>
+            </div>
+            <div class="shadowed boardContainer">
+                <div class="board">
+                    <div class="boardDesign"></div>
+                    <div class="pieces"></div>
+                </div>
+            </div>
+            <div class="container shadowed game">
+                <span class="title">
+                    <p>Partie</p>
+                </span>
+                <div id="history">
+                    <div class="histoMove" id="1move">
+                        <span>1.</span>
+                        <div class="whiteMove"></div>
+                        <div class="blackMove"></div>
+                    </div>
+                </div>
+                <div id="gameScore">
+                    <button class="google" id="offerDraw">Proposer la nulle</button>
+                    <button class="google" id="resign"><span class="material-icons">&#xe153;</span> Abandonner</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            const containerOfBoardContainer = document.getElementsByClassName('boardContainer')[0];
+            const boardContainer = document.getElementsByClassName('board')[0];
+            const board = document.getElementsByClassName('boardDesign')[0];
+            const pieces = document.getElementsByClassName('pieces')[0];
+            const promotionPrompt = document.getElementsByClassName('promotionPrompt')[0];
+
+            let isPromotion = false;
+            const promotionMoves = {}
+
+            boardContainer.oncontextmenu = e => {
+                e.preventDefault();
+            }
+
+            let mode = localStorage.getItem('piecesMode');
+            if(!mode) {
+                localStorage.setItem('piecesMode', 'classic');
+                mode = 'classic';
+            }
+
+            let boardColor = localStorage.getItem('boardColor');
+            if(boardColor) boardContainer.dataset.color = boardColor;
+
+            let legalMoves = [];
+
+            let pName = window.location.pathname;
+            let id = pName.substring(pName.lastIndexOf('/') + 1);
+
+            let dragging = false,
+                draggingPiece,
+                isRotated = false,
+                piecesBox = pieces.getBoundingClientRect(),
+                latestFEN,
+                piecesArray = [],
+                usSide;
+        </script>
+        <script src="./../assets/js/timers.js"></script>
+        <script src="./../assets/js/settings.js"></script>
+        <script src="./../assets/js/chessBoard.js"></script>
+        <script src="./../assets/js/socketManager.js"></script>
+        <script src="./../assets/js/loader.js"></script>
+        <script src="./../assets/js/draw.js"></script>
+        <script src="./../assets/js/moveHistory.js"></script>
+        <script src="./../assets/js/music.js"></script>
+    </body>
+</html>
